@@ -25,6 +25,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['admin.login
 	Route::get('loginout','IndexController@loginout');
 	Route::any('cgpass','IndexController@cgpass');
 	Route::resource('category','CategoryController');
+	Route::post('cgorder','CategoryController@cgorder');
 	}
 );
 

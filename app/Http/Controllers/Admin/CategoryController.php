@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Category;
+use Illuminate\Support\Facades\Input;
 class CategoryController extends Controller
 {
     // admin/category GET 列表
     public function index(){
-    	$cates = Category::all();
+    	$cates = Category::orderBy('cate_order','asc')->get();
 
     	$category = new Category();
 
@@ -43,5 +44,24 @@ class CategoryController extends Controller
     public function edit(){
 
     }
+    public function  cgorder(){
+        $data = Input::all();
+        $cate = Category::find($data['cate_id']);
+        $cate->cate_order = $data['orderV'];
+        $res = $cate->update();
+        if($res){
+            $info = [
+                'status' =>0,
+                'msg'=>'分类排序更新成功！',
 
+            ];
+        }else{
+            $info = [
+                'status' =>1,
+                'msg'=>'分类排序更新失败！',
+
+            ];
+        }
+        return $info;
+    }
 }
